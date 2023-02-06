@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext, useState } from "react";
+import "./App.css";
+import { resultContext } from "./context/resultContext";
 
 function App() {
+  const { state, updateState } = useContext(resultContext);
+  console.log("STATE", state);
+
+  const [s, setS] = useState("");
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          updateState(s);
+        }}
+      >
+        <input type="radio" value="A" onChange={(e) => setS(e.target.value)} />
+        <button>A</button>
+        <input type="radio" value="B" />
+        <input type="radio" value="C" />
+      </form>
+
+      {state && state.map((e) => <div>{e}</div>)}
     </div>
   );
 }
