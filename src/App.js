@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import "./App.css";
 import { resultContext } from "./context/resultContext";
 import { questions, result } from "./data/questions";
+import useComputation from "./hook/useComputation";
 import useSteps from "./hook/useSteps";
 
 function App() {
@@ -11,29 +12,12 @@ function App() {
 
   const [selectedAnswer, setSelectedAnswer] = useState("");
 
+  // core logic
+  const { output } = useComputation(state);
+
+  // derived values
   const activeStep = questions[step];
-
-  const computeResults = () => {
-    const responses = [...state];
-    const transformResponses = responses.map((response, index) => {
-      if (response) {
-        return {
-          [`q${index + 1}`]: response === "yes" ? "yes" : "no",
-        };
-      }
-      return null;
-    });
-    return transformResponses.reduce((acc, currentValue) => {
-      Object.entries(currentValue).map(([key, value]) => {
-        if (value === "yes") {
-          return (acc += key);
-        }
-      });
-      return acc;
-    }, "");
-  };
-
-  const Component = result[computeResults()];
+  const Component = result[output];
 
   return (
     <>
