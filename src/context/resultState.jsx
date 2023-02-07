@@ -8,7 +8,7 @@ const ResultState = ({ children }) => {
 
   const updateState = (info) => {
     setState((p) => {
-      return [info];
+      return [...p, ...info];
     });
   };
 
