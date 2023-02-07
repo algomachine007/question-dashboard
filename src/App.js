@@ -41,7 +41,7 @@ function App() {
           ))}
           <div className="btn">
             <button onClick={() => updateState(selectedAnswer)} type="submit">
-              Submit
+              Choose
             </button>
 
             <button onClick={() => handleStep("prev")} disabled={step <= 0}>

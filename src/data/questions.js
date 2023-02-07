@@ -23,4 +23,5 @@ export const result = {
   q1q2q3: "You selected positive feedbacks for Q1, Q2, Q3 😃",
   q1: "No Results found for this entry Q1 😠",
   q2: "No Results found for this entry. Q2 😤",
+  q3: "No Results found for this entry. Q3 😤",
 };
