@@ -7,8 +7,8 @@ const ResultState = ({ children }) => {
   const [state, setState] = useState([]);
 
   const updateState = (info) => {
-    setState((p) => {
-      return [...p, ...info];
+    setState((previous) => {
+      return [...previous, info];
     });
   };
 

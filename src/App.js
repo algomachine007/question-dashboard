@@ -8,14 +8,13 @@ function App() {
   const [step, setStep] = useState(0);
   console.log("STATE", state);
 
-  const [s, setS] = useState("");
+  const [selectedAnswer, setSelectedAnswer] = useState("");
 
-  console.log("Step", step);
+  console.log("selected", selectedAnswer);
 
   const activeStep = questions[step];
 
   const handleStep = (direction) => {
-    console.log("Direction", direction);
     switch (direction) {
       case "next":
         return setStep((p) => p + 1);
@@ -37,23 +36,27 @@ function App() {
       </div>
 
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          updateState(s);
-        }}
+      // onSubmit={(e) => {
+      //   e.preventDefault();
+      //   updateState(selectedAnswer);
+      // }}
       >
         {activeStep.answers.map((answer) => (
           <>
             <input
               type="radio"
-              value={answer}
-              onChange={(e) => setS(e.target.value)}
-              // checked={}
+              value={String(answer)}
+              onChange={(e) => setSelectedAnswer(e.target.value)}
+              checked={answer === selectedAnswer}
             />
             <label>{answer}</label>
           </>
         ))}
       </form>
+
+      <button onClick={() => updateState(selectedAnswer)} type="submit">
+        Submit
+      </button>
 
       <button onClick={() => handleStep("prev")} disabled={step <= 0}>
         Prev
