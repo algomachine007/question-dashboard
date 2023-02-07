@@ -1,7 +1,7 @@
 export const questions = [
   {
     id: "1",
-    question: "Why do you like our service ? ",
+    question: "Why do you like our service? ",
     answers: ["yes", "no", "skip"],
   },
   {

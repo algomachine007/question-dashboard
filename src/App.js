@@ -2,34 +2,19 @@ import { useContext, useState } from "react";
 import "./App.css";
 import { resultContext } from "./context/resultContext";
 import { questions, result } from "./data/questions";
+import useSteps from "./hook/useSteps";
 
 function App() {
   const { state, updateState } = useContext(resultContext);
-  const [step, setStep] = useState(0);
+
+  const [step, handleStep] = useSteps(0);
 
   const [selectedAnswer, setSelectedAnswer] = useState("");
 
   const activeStep = questions[step];
 
-  const handleStep = (direction) => {
-    switch (direction) {
-      case "next":
-        return setStep((p) => p + 1);
-
-      case "prev":
-        return setStep((p) => (p > 0 ? p - 1 : p));
-
-      case "restart":
-        return setStep(0);
-
-      default:
-        return null;
-    }
-  };
-
   const computeResults = () => {
     const responses = [...state];
-
     const transformResponses = responses.map((response, index) => {
       if (response) {
         return {
@@ -38,7 +23,6 @@ function App() {
       }
       return null;
     });
-
     return transformResponses.reduce((acc, currentValue) => {
       Object.entries(currentValue).map(([key, value]) => {
         if (value === "yes") {
@@ -49,14 +33,11 @@ function App() {
     }, "");
   };
 
-  console.log(computeResults());
-
   const Component = result[computeResults()];
-  console.log(Component);
 
   return (
     <>
-      {!Component && (
+      {step <= questions.length && (
         <div className="App">
           <div>
             <h2>
@@ -94,11 +75,28 @@ function App() {
               <button onClick={() => handleStep("restart")}>Restart</button>
             )}
           </div>
-          {state && state.map((e) => <div>{e}</div>)}
+          {state.length > 0 && (
+            <div className="responses">
+              {state.map((e, i) => (
+                <div>
+                  <h3>Responses: </h3>
+                  <p>{`Question${i + 1} ${e}`}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
-      {Component && <div className="result">{Component}</div>}
+      {state.length === questions.length && Component && (
+        <div className="result">
+          <div>{Component}</div>
+
+          <button className="reset" onClick={() => window.location.reload()}>
+            Restart
+          </button>
+        </div>
+      )}
     </>
   );
 }

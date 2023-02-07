@@ -31,3 +31,22 @@
   max-width: 400px;
   margin: 50px auto;
 }
+
+.reset {
+  margin: 30px;
+  cursor: pointer;
+  width: 100px;
+  border-radius: 5px;
+  padding: 10px;
+  border: none;
+  background-color: rgba(255, 0, 0, 0.799);
+  color: white;
+}
+
+.responses {
+  box-shadow: -4px 9px 20px -5px rgba(204, 65, 65, 0.75);
+  -webkit-box-shadow: -4px 9px 20px -5px rgba(204, 65, 65, 0.75);
+  -moz-box-shadow: -4px 9px 20px -5px rgba(204, 65, 65, 0.75);
+  border-radius: 10px;
+  padding: 10px 2px;
+}
